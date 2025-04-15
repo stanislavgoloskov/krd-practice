@@ -1,0 +1,19 @@
+<div class="header">
+  <h1>Добавление промокода</h1>
+</div>
+
+<div class="promo-container">
+  <form action="/promo/apply" method="post">
+    <div class="promo-input-group <%= @error ? 'error' : '' %>">
+      <label for="promo_code">Введите свой промокод</label>
+      <input type="text" id="promo_code" name="promo_code" value="<%= params[:promo_code] || '' %>" required>
+      <% if @error %>
+        <div class="error-message">Неверный промокод</div>
+      <% end %>
+    </div>
+    <div class="promo-buttons">
+      <a href="/checkout" class="back-button">Назад</a>
+      <button type="submit" class="apply-button">ДОБАВИТЬ</button>
+    </div>
+  </form>
+</div>

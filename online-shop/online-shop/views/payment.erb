@@ -1,0 +1,63 @@
+<div class="header">
+  <h1>Карта</h1>
+</div>
+
+<div class="progress-bar">
+  <div class="progress-step active">1. Доставка</div>
+  <div class="progress-step active">2. Оплата</div>
+  <div class="progress-step">3. Готово</div>
+</div>
+
+<% if @saved_cards && @saved_cards.any? %>
+  <div class="saved-cards">
+    <h2>Сохраненные карты</h2>
+    <% @saved_cards.each do |card| %>
+      <div class="saved-card">
+        <form action="/payment/use_saved_card" method="post">
+          <input type="hidden" name="card_id" value="<%= card[:id] %>">
+          <div class="saved-card-info">
+            <div class="card-number"><%= card[:mask] %></div>
+            <div class="card-expiry">Срок действия: <%= card[:expiry] %></div>
+          </div>
+          <button type="submit" class="use-card-btn">Использовать эту карту</button>
+        </form>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="card-separator">
+    <span>или</span>
+  </div>
+<% end %>
+
+<div class="card-selector">
+  <div class="dropdown">
+    <p>Новая карта <span class="dropdown-arrow">▼</span></p>
+  </div>
+</div>
+
+<form action="/payment/process" method="post" class="card-form">
+  <div class="card-field">
+    <label for="card_number">Номер карты</label>
+    <input type="text" id="card_number" name="card_number" placeholder="Номер карты" required>
+  </div>
+  
+  <div class="card-field expiry">
+    <label for="expiry_month">Срок действия</label>
+    <div class="expiry-inputs">
+      <input type="text" id="expiry_month" name="expiry_month" placeholder="MM" maxlength="2" required>
+      <span class="separator">/</span>
+      <input type="text" id="expiry_year" name="expiry_year" placeholder="YY" maxlength="2" required>
+    </div>
+  </div>
+  
+  <div class="save-card-option">
+    <input type="checkbox" id="save_card" name="save_card">
+    <label for="save_card">Сохранить карту для будущих платежей</label>
+  </div>
+  
+  <div class="form-buttons">
+    <a href="/checkout" class="back-button">Назад</a>
+    <button type="submit" class="next-button">ДАЛЕЕ</button>
+  </div>
+</form>

@@ -1,0 +1,28 @@
+<div class="header">
+  <h1>Карта</h1>
+</div>
+
+<div class="progress-bar">
+  <div class="progress-step active">1. Доставка</div>
+  <div class="progress-step active">2. Оплата</div>
+  <div class="progress-step">3. Готово</div>
+</div>
+
+<form action="/payment/complete" method="post" class="card-form">
+  <div class="card-field cvv">
+    <label for="cvv">CVV/CVC</label>
+    <input type="password" id="cvv" name="cvv" maxlength="3" required>
+    <div class="cvv-help">
+      <img src="/images/cvv-help.svg" alt="Где найти CVV">
+      <span>Трехзначный код на обратной стороне карты</span>
+    </div>
+    <% if @error %>
+      <div class="error-message">Неверные данные карты</div>
+    <% end %>
+  </div>
+  
+  <div class="form-buttons">
+    <a href="/payment" class="back-button">Назад</a>
+    <button type="submit" class="add-button">ДОБАВИТЬ</button>
+  </div>
+</form>

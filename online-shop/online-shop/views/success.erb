@@ -1,0 +1,25 @@
+<div class="header">
+  <h1>Заказ оформлен</h1>
+</div>
+
+<div class="progress-bar">
+  <div class="progress-step active">1. Доставка</div>
+  <div class="progress-step active">2. Оплата</div>
+  <div class="progress-step active">3. Готово</div>
+</div>
+
+<div class="success-container">
+  <div class="success-icon">✓</div>
+  <h2>Вы успешно оформили заказ!</h2>
+  <p>Ожидайте доставку 12 апреля <%= @delivery_time %></p>
+  
+  <% if session[:saved_cards] && session[:saved_cards].any? %>
+    <div class="saved-card-info">
+      <p>Ваша карта <%= session[:saved_cards].last[:mask] %> успешно сохранена для будущих платежей.</p>
+    </div>
+  <% end %>
+  
+  <div class="success-actions">
+    <a href="/" class="continue-shopping">Вернуться к покупкам</a>
+  </div>
+</div>

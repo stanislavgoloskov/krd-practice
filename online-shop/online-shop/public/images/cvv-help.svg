@@ -1,0 +1,8 @@
+<svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="2" y="2" width="56" height="36" rx="4" stroke="#666" stroke-width="2"/>
+  <rect x="5" y="8" width="50" height="8" fill="#ccc"/>
+  <rect x="40" y="22" width="15" height="10" rx="1" stroke="#666" stroke-width="2" fill="#eee"/>
+  <text x="47" y="29" text-anchor="middle" font-size="7" fill="#666">CVV</text>
+  <line x1="10" y1="25" x2="30" y2="25" stroke="#666" stroke-width="1"/>
+  <line x1="10" y1="29" x2="25" y2="29" stroke="#666" stroke-width="1"/>
+</svg>

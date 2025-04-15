@@ -1,0 +1,79 @@
+<div class="header">
+  <h1>Оформление заказа</h1>
+</div>
+
+<div class="progress-bar">
+  <div class="progress-step <%= @checkout_step >= 1 ? 'active' : '' %>">1. Доставка</div>
+  <div class="progress-step <%= @checkout_step >= 2 ? 'active' : '' %>">2. Оплата</div>
+  <div class="progress-step <%= @checkout_step >= 5 ? 'active' : '' %>">3. Готово</div>
+</div>
+
+<div class="checkout-blocks">
+  <div class="delivery-block">
+    <h2>Доставка курьером 12 апреля</h2>
+    <form action="/checkout/set_delivery_time" method="post" id="delivery-time-form">
+      <div class="delivery-time">
+        <select name="delivery_time" onchange="document.getElementById('delivery-time-form').submit();">
+          <% @delivery_times.each do |time| %>
+            <option value="<%= time %>" <%= @delivery_time == time ? 'selected' : '' %>><%= time %></option>
+          <% end %>
+        </select>
+      </div>
+    </form>
+  </div>
+  
+  <div class="cancel-block">
+    <a href="/cart" class="cancel-btn">Отменить заказ</a>
+  </div>
+  
+  <div class="payment-block">
+    <h2>Способ оплаты</h2>
+    <form id="payment-form" action="/checkout/set_payment" method="post">
+      <div class="payment-methods">
+        <label class="payment-method <%= @payment_method == 'card_online' ? 'selected' : '' %>">
+          <input type="radio" name="payment_method" value="card_online" <%= @payment_method == 'card_online' ? 'checked' : '' %> onchange="document.getElementById('payment-form').submit();">
+          <img src="/images/card-online.svg" alt="Картой онлайн">
+          <span>Картой онлайн</span>
+        </label>
+        <label class="payment-method <%= @payment_method == 'card_delivery' ? 'selected' : '' %>">
+          <input type="radio" name="payment_method" value="card_delivery" <%= @payment_method == 'card_delivery' ? 'checked' : '' %> onchange="document.getElementById('payment-form').submit();">
+          <img src="/images/card-delivery.svg" alt="Картой при получении">
+          <span>Картой при получении</span>
+        </label>
+        <label class="payment-method <%= @payment_method == 'cash_delivery' ? 'selected' : '' %>">
+          <input type="radio" name="payment_method" value="cash_delivery" <%= @payment_method == 'cash_delivery' ? 'checked' : '' %> onchange="document.getElementById('payment-form').submit();">
+          <img src="/images/cash.svg" alt="Наличными при получении">
+          <span>Наличными при получении</span>
+        </label>
+      </div>
+    </form>
+  </div>
+  
+  <div class="summary-block">
+    <div class="summary-row">
+      <span>Итого</span>
+      <span><%= @final_total %> р.</span>
+    </div>
+    <div class="summary-row">
+      <span>Товар</span>
+      <span><%= @total %> р.</span>
+    </div>
+    <div class="summary-row">
+      <span>Доставка</span>
+      <span>49 р.</span>
+    </div>
+    <div class="summary-row discount">
+      <span>Скидка</span>
+      <% if @discount && @discount > 0 %>
+        <span><%= @discount %> р.</span>
+      <% else %>
+        <a href="/promo" class="add-promo-btn">Добавить</a>
+      <% end %>
+    </div>
+  </div>
+  
+  <form action="/checkout/process" method="post" id="checkout-form">
+    <input type="hidden" name="payment_method" value="<%= @payment_method %>">
+    <button type="submit" class="order-btn">ОФОРМИТЬ ЗАКАЗ</button>
+  </form>
+</div>

@@ -1,0 +1,16 @@
+<div class="header">
+  <h1>Товары</h1>
+</div>
+
+<div class="products-list">
+  <% PRODUCTS.each do |product| %>
+    <div class="product-item">
+      <h2><%= product[:name] %></h2>
+      <p class="price"><%= product[:price] %> руб.</p>
+      <p class="delivery">Доставим завтра</p>
+      <form action="/cart/add/<%= product[:id] %>" method="post">
+        <button class="cart-button">В корзину</button>
+      </form>
+    </div>
+  <% end %>
+</div>

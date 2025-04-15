@@ -1,0 +1,35 @@
+<div class="header">
+  <h1>3D-Secure</h1>
+</div>
+
+<div class="progress-bar">
+  <div class="progress-step active">1. Доставка</div>
+  <div class="progress-step active">2. Оплата</div>
+  <div class="progress-step">3. Готово</div>
+</div>
+
+<div class="secure-container">
+  <div class="bank-logo">
+    <img src="/images/bank-logo.svg" alt="Банк">
+  </div>
+  
+  <h2>Подтверждение платежа</h2>
+  <p>Для завершения оплаты введите код из SMS, отправленный на ваш телефон</p>
+  
+  <% if @error %>
+    <div class="error-message"><%= @error %></div>
+  <% end %>
+  
+  <form action="/payment/3dsecure/process" method="post">
+    <div class="secure-code-field">
+      <label for="secure_code">Код из SMS</label>
+      <input type="text" id="secure_code" name="secure_code" maxlength="6" required>
+      <p class="secure-help">Для демонстрации: введите 123456 для успешной оплаты, 111111 для "недостаточно средств", 222222 для "ошибка соединения", любой другой код для ошибки аутентификации</p>
+    </div>
+    
+    <div class="form-buttons">
+      <a href="/payment/cvv" class="back-button">Отмена</a>
+      <button type="submit" class="confirm-button">ПОДТВЕРДИТЬ</button>
+    </div>
+  </form>
+</div>

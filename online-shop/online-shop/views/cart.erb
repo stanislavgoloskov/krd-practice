@@ -1,0 +1,37 @@
+<div class="header">
+  <h1>Корзина</h1>
+</div>
+
+<% if @cart_items.empty? %>
+  <div class="empty-cart">
+    <p>Ваша корзина пуста</p>
+  </div>
+<% else %>
+  <div class="cart-item">
+    <% @cart_items.each do |item| %>
+      <% product = PRODUCTS.find { |p| p[:id] == item[:id] } %>
+      <div class="product-wrapper">
+        <div class="product-image">
+          <img src="/images/book.jpg" alt="<%= product[:name] %>">
+        </div>
+        <div class="product-info">
+          <h2>Книга 45 татуировок менеджера</h2>
+          <p class="price">450 руб.</p>
+          <p class="delivery">Доставим завтра</p>
+          <p class="free-return">Бесплатный отказ</p>
+        </div>
+        <div class="product-actions">
+          <a href="/cart/remove/<%= product[:id] %>" class="trash-btn">
+            <img src="/images/trash.svg" alt="Удалить">
+          </a>
+          <div class="quantity-controls">
+            <a href="/cart/decrease/<%= product[:id] %>" class="minus-btn">-</a>
+            <span class="quantity"><%= item[:quantity] %></span>
+            <a href="/cart/increase/<%= product[:id] %>" class="plus-btn">+</a>
+          </div>
+          <a href="/checkout" class="checkout-btn">ОФОРМИТЬ</a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
